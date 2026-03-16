@@ -36,11 +36,12 @@ jobs:
     - name: Install Trivy CLI
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh
-        chmod +x install.sh
-        sudo ./install.sh
-        echo "/usr/local/bin" >> $GITHUB_PATH
+        sudo apt-get install -y wget tar
+        wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_Linux-64bit.tar.gz
+        tar zxvf trivy_Linux-64bit.tar.gz
+        sudo mv trivy /usr/local/bin/
+        sudo chmod +x /usr/local/bin/trivy
+        trivy --version
 
     - name: Scan Docker image with Trivy
       run: trivy image --format table --output trivy-report.txt collector-poc
