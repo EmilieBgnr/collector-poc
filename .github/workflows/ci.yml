@@ -34,9 +34,7 @@ jobs:
       run: docker build -t collector-poc .
 
     - name: Install Trivy
-      uses: aquasecurity/trivy-action@0.20.0
-      with:
-        version: latest
+      uses: aquasecurity/trivy-action@master
 
     - name: Scan Docker image with Trivy
       run: trivy image --format table --output trivy-report.txt collector-poc
